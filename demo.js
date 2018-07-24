@@ -28,13 +28,17 @@
             l.href = href;
             return l;
         };
-
-
         function ParseUrl() {
             var url = document.getElementById("inputUrl").value;
+            console.log(url.substr(0, 7));
+            if (url.substr(0, 7) == "http://" || url.substr(0, 8) == "https://") {
+                var l = getLocation(url);
+            } else {
+                url = "http://" + url
+                console.log(url);
+                var l = getLocation(url);
 
-            var l = getLocation(url);
-
+            }
             ///////////////////////////Row 1 protocol//////////////////////////////////////////////
             var table = document.getElementById("targettable");
 
@@ -77,8 +81,6 @@
             table.appendChild(tr1);
 
             ////////////////row 2/////////////////////////////
-
-
             var row2 = table.insertRow(2);
 
             var tr2 = document.createElement("tr");
@@ -93,6 +95,11 @@
                 var txt22 = document.createTextNode(l.port);
                 var txt23 = document.createTextNode("");
                 var txt24 = document.createTextNode("Provided");
+            }
+            else if (l.port == "" && l.protocol == "https:") {
+                var txt22 = document.createTextNode("443");
+                var txt23 = document.createTextNode("");
+                var txt24 = document.createTextNode("Default");
             }
             else {
                 var txt22 = document.createTextNode("80");
@@ -111,9 +118,6 @@
             tr2.appendChild(td24);
 
             table.appendChild(tr2);
-
-
-
             ////////////////row 3/////////////////////////////
             var row3 = table.insertRow(3);
 
@@ -124,18 +128,15 @@
             var td33 = document.createElement("td");
             var td34 = document.createElement("td");
 
-
             var a = document.createElement('a');
             a.href = "http://" + l.hostname;
             a.title = l.hostname;
             a.appendChild(document.createTextNode(l.hostname));
 
-
             var txt31 = document.createTextNode("Full Address");
             //var txt32 = document.createTextNode("");
             var txt33 = document.createTextNode("");
             var txt34 = document.createTextNode("Lookup");
-
 
             td31.appendChild(txt31);
             td32.appendChild(a);
@@ -148,8 +149,6 @@
             tr3.appendChild(td34);
 
             table.appendChild(tr3);
-
-
 
             ////////////////row 4//// top level domain /////////////////////////
             var row4 = table.insertRow(4);
@@ -168,7 +167,6 @@
             var txt42 = document.createTextNode(topdomain[topdomain.length - 1]);
             var txt43 = document.createTextNode("");
             var txt44 = document.createTextNode("provided");
-
 
             td41.appendChild(txt41);
             td42.appendChild(txt42);
@@ -194,18 +192,15 @@
 
             var txt51 = document.createTextNode("Domain Name");
 
-
             var a2 = document.createElement('a');
             a2.href = "http://" + topdomain[topdomain.length - 2] + "." + topdomain[topdomain.length - 1];
             a2.title = topdomain[topdomain.length - 2] + "." + topdomain[topdomain.length - 1];
             a2.appendChild(document.createTextNode(topdomain[topdomain.length - 2] + "." + topdomain[topdomain.length - 1]));
 
-
             //var domainName = topdomain[topdomain.length - 2] + "." + topdomain[topdomain.length - 1];
             //var txt52 = document.createTextNode(domainName);
             var txt53 = document.createTextNode("");
             var txt54 = document.createTextNode("provided");
-
 
             td51.appendChild(txt51);
             td52.appendChild(a2);
@@ -218,10 +213,6 @@
             tr5.appendChild(td54);
 
             table.appendChild(tr5);
-
-
-
-
 
             ////////////////row 6//// SUb Domain Name /////////////////////////
             var row5 = table.insertRow(6);
@@ -238,7 +229,6 @@
             var i;
             if (topdomain[0] == 'www') {
                 //console.log(topdomain[0]);
-
 
                 if (topdomain.length >= 3) {
                     for (i = 1; i < topdomain.length - 2; i++) {
@@ -273,8 +263,6 @@
                 txt64 = document.createTextNode("provided");
             }
 
-
-
             td61.appendChild(txt61);
             td62.appendChild(txt62);
             td63.appendChild(txt63);
@@ -299,8 +287,7 @@
 
             var txt71 = document.createTextNode("Path");
 
-
-            console.log("path=" + l.pathname);
+            //console.log("path=" + l.pathname);
             if (l.pathname != "/") {
                 var txt72 = document.createTextNode(l.pathname.substr(1));
                 var txt74 = document.createTextNode("provided");
@@ -310,8 +297,6 @@
                 var txt74 = document.createTextNode("unavilable");
             }
             var txt73 = document.createTextNode("");
-
-
             td71.appendChild(txt71);
             td72.appendChild(txt72);
             td73.appendChild(txt73);
@@ -325,10 +310,9 @@
             table.appendChild(tr7);
 
             ///////////////row 8 and onwards//// parameters Name  and value/////////////////////
-
             var param = l.search.substr(1);
             param = param.split('&');
-            console.log(param);
+            //console.log(param);
             var rowindex = 8;
 
             if (param != "") {
@@ -402,7 +386,7 @@
 
 
     <header>
-        <h1> Welcome to my Webpage</h1>
+        <h1> URL Parser</h1>
     </header>
 
     <input type="text" id="inputUrl" />
