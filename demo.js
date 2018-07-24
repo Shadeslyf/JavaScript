@@ -218,8 +218,79 @@ var row5 = table.insertRow(5);
 
 
 
-        }
+        
+////////////////row 6//// SUb Domain Name /////////////////////////
+var row5 = table.insertRow(6);
 
+            var tr6 = document.createElement("tr");
+
+            var td61 = document.createElement("td");
+            var td62 = document.createElement("td");
+            var td63 = document.createElement("td");
+            var td64 = document.createElement("td");
+
+                var txt61 = document.createTextNode("Subdomain Name");
+                var subdomain="";
+                var i;
+                if(topdomain[0]=='www'){
+                     console.log(topdomain[0]);
+
+
+                    if(topdomain.length>=3)
+                    {
+                        for( i=1;i<topdomain.length-2;i++){
+                                        subdomain= subdomain+"."+topdomain[i];
+                        console.log(subdomain);
+
+                         }
+                    }     
+
+                }else
+                {
+
+                     console.log(topdomain[0]);
+                     if(topdomain.length>3)
+                    {
+
+                    for(i=0;i<topdomain.length-2;i++){
+                        subdomain= subdomain+"."+topdomain[i];
+                        console.log(subdomain);
+
+                    }
+                        }
+                }
+
+                subdomain=subdomain.substr(1);
+                var txt62;
+                var txt63 = document.createTextNode("");
+                var txt64;
+                if(subdomain==""){
+                    txt62 = document.createTextNode("No Subdomain");
+                    txt64 = document.createTextNode("unavilable");
+                }else
+                {
+                    txt62 = document.createTextNode(subdomain);
+                    txt64 = document.createTextNode("None");
+                }
+                
+            
+
+            td61.appendChild(txt61);
+            td62.appendChild(txt62);
+            td63.appendChild(txt63);
+            td64.appendChild(txt64);
+
+            tr6.appendChild(td61);
+            tr6.appendChild(td62);
+            tr6.appendChild(td63);
+            tr6.appendChild(td64);
+
+            table.appendChild(tr6);
+
+
+
+
+        }
 
 
 
